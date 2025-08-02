@@ -1,44 +1,50 @@
-# Cloud Infrastructure Comparison – GCP Terraform Deployment
+# Cloud – GCP Deployment
 
-This repository contains Terraform configuration files to deploy a web server on Google Cloud Platform (GCP) as part of a cloud infrastructure comparison.
+This repository contains Terraform code used to deploy a basic web server on Google Cloud Platform (GCP) as part of a cloud infrastructure comparison project. The setup provisions a virtual machine running Ubuntu, configures firewall rules, assigns a static IP, and deploys a simple “Hello World” page using Apache.
 
-## 🛠️ Files
+##  Files
 
-- `main.tf` – Provisions network, VM, firewall, and startup script
-- `variables.tf` – Declares project ID, region, and zone
-- `outputs.tf` – Exposes external IP of the deployed VM
+- **main.tf** – Provisions the VPC, firewall, VM instance, and startup script.
+- **variables.tf** – Declares the `project`, `region`, and `zone` variables.
+- **outputs.tf** – Displays the external IP address of the deployed VM after successful execution.
 
-## 🚀 Instructions
+##  Setup Instructions
 
-1. Set the environment variable to your GCP service account key:
+### 1. Configure GCP credentials
+
+Export the path to your downloaded service account JSON key:
 
 ```bash
 export GOOGLE_APPLICATION_CREDENTIALS="/path/to/your/key.json"
 ```
 
-2. Initialize Terraform:
+### 2. Initialize Terraform
 
 ```bash
 terraform init
 ```
 
-3. Preview and apply the deployment:
+### 3. Preview and apply the deployment
 
 ```bash
-terraform plan -var="project=your-gcp-project-id"
-terraform apply -var="project=your-gcp-project-id"
+terraform plan -var="project=cloud-project-467815"
+terraform apply -var="project=cloud-project-467815"
 ```
 
-4. Visit the VM's external IP in your browser to see the "Hello World" page.
+### 4. Verify deployment
 
-5. Destroy the deployment when finished:
+After deployment completes, Terraform will output the public IP address of your VM. Open a browser and navigate to that IP. You should see a page displaying:
+
+```html
+Hello, World! from web-vm
+```
+
+You can also SSH into the VM via the GCP console and verify that Apache is running.
+
+### 5. Tear down the deployment
+
+To remove all deployed infrastructure:
 
 ```bash
-terraform destroy -var="project=your-gcp-project-id"
+terraform destroy -var="project=cloud-project-467815"
 ```
-
-## 🧾 Screenshots (included separately)
-
-- `gcp_console_vm.png`
-- `ssh_apache_check.png`
-- `browser_output.png`
